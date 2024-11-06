@@ -1,0 +1,60 @@
+class Main {
+    function void main() {
+        var int score;
+        var int delay1, delay2;
+        var int current_lives;
+        var Nave navecita;
+
+        var int posx_aliens;
+        var int posy_aliens;
+
+        let posx_aliens = 0;
+        let posy_aliens = 1;
+
+        let score = 0;
+        let current_lives = 3;
+        let navecita = Nave.new();
+        let delay1 = 200;
+        let delay2 = 150;
+
+        do Screen.drawRectangle(0, 0, 511, 255);
+
+        while (true) {
+            do Score.infoSuperior(current_lives, score);
+
+            do navecita.userInput();
+
+            while(posx_aliens<10){ 
+                if ((posx_aliens / 2) * 2 = posx_aliens) {
+                    do Marciano.drawMarcian2(posx_aliens, posy_aliens);
+                } else {
+                    do Marciano.drawMarcian1(posx_aliens, posy_aliens);
+                }                
+                do Time.delay(delay1, navecita);
+                do Marciano.delete(posx_aliens, posy_aliens);
+                do Time.delay(delay2, navecita);
+                let posx_aliens=posx_aliens+1;
+            }
+            
+            while(posx_aliens>0){
+                if ((posx_aliens / 2) * 2 = posx_aliens) {
+                    do Marciano.drawMarcian2(posx_aliens, posy_aliens);
+                } else {
+                    do Marciano.drawMarcian1(posx_aliens, posy_aliens);
+                } 
+                do Time.delay(delay1, navecita);
+                do Marciano.delete(posx_aliens, posy_aliens);
+                do Time.delay(delay2, navecita);
+                let posx_aliens=posx_aliens-1;
+            }
+
+            if(posy_aliens<4){ 
+                let posy_aliens=posy_aliens+1;
+            }
+
+        }
+
+        return;
+    }
+    
+}

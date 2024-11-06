@@ -1,0 +1,59 @@
+class Nave {
+
+    field int memory_pos;
+    field int x_pos;
+    field int vertical_pos;
+    field int player_bullet_pos;
+    field int key;
+
+    constructor Nave new() {
+        let x_pos = 15; //posicion de memoria en X de la nave
+        let vertical_pos = 220; // posicion en Y en pixeles de la nave
+        let player_bullet_pos = -10000;
+        let memory_pos = Math.multiply(32, vertical_pos) + x_pos;
+
+        return this;
+    }
+
+    method void userInput () {
+
+        if (~(Keyboard.keyPressed() = 0)) {
+            while (Keyboard.keyPressed() = key) {
+                // Don't do anything
+            }
+        }
+
+        let key = Keyboard.keyPressed();
+
+
+        if (key = 130) {
+            do Screen.setColor(true);
+            do Screen.drawRectangle(Math.multiply(x_pos, 16), vertical_pos + 1, Math.multiply(x_pos, 16) + 30, vertical_pos + 30);
+            let x_pos = x_pos - 1;
+        }
+
+        if (key = 132) {
+            do Screen.setColor(true);
+            do Screen.drawRectangle(Math.multiply(x_pos, 16), vertical_pos + 1, Math.multiply(x_pos, 16) + 30, vertical_pos + 30);
+            let x_pos = x_pos + 1;
+        }
+
+        if (key = 131) {
+            if (player_bullet_pos < -1000) {
+                let player_bullet_pos = memory_pos - Math.multiply(32, 10);
+                do Sprites.drawShipBullet(player_bullet_pos);
+            }
+        }
+
+        if (player_bullet_pos > -1000) {
+            do Sprites.drawShipBullet(player_bullet_pos);
+            do Sys.wait(10);
+            let player_bullet_pos = player_bullet_pos - Math.multiply(32, 10);
+        }
+
+        let memory_pos = Math.multiply(32, vertical_pos) + x_pos;
+        do Sprites.drawShip(memory_pos);
+
+        return;
+    }
+}

@@ -1,0 +1,17 @@
+class Time{
+    function void delay(int duration, Nave navecita) {
+        var int counter;
+        var int n;
+        let counter = 0;
+        let duration = 500+duration;
+
+        while (counter < 20) {
+            let counter = counter + 1;
+            let n=0;
+            do navecita.userInput();
+        }
+
+        return;
+    }
+
+}
