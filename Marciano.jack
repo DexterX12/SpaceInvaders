@@ -1,55 +1,31 @@
 class Marciano{
+    field int alive;
+    field int position;
+    field int state;
 
-    function void drawMarcian1(int positionx, int positiony){
-        var int x;
-        var int y;
-        let y=0;
-        while(y<3){
-            let x=0;
-            while(x<6){
-                do Marciano.marcian1(positionx+x, positiony+y);
-                let x = x + 1;
-            }
-            let y=y+1;
+    constructor Marciano new(int x, int y){
+        let alive = 1;
+        let state = 1;
+        do marcian1(x, y);
+        return this;
+    }
+
+    method void draw(int x, int y) {
+        if (state = 1) {
+            let state = 2;
+            do marcian2(x, y);
+        } else {
+            let state = 1;
+            do marcian1(x, y);
         }
         return;
     }
-
-    function void drawMarcian2(int positionx, int positiony){
-        var int x;
-        var int y;
-        let y=0;
-        while(y<3){
-            let x=0;
-            while(x<6){
-                do Marciano.marcian2(positionx+x, positiony+y);
-                let x = x + 1;
-            }
-            let y=y+1;
-        }
-        return;
-    }
-
-    function void delete(int positionx, int positiony){
-        var int x;
-        var int y;
-        let y=0;
-        while(y<3){
-            let x=0;
-            while(x<6){
-                do Marciano.erase(positionx+x, positiony+y);
-                let x = x + 1;
-            }
-            let y=y+1;
-        }
-        return;
-    }
-    
-    function void marcian2(int x, int y) {
+    method void marcian2(int x, int y) {
         var int memAddress; 
         let x = Math.multiply(x, 2);
         let y = Math.multiply(y, 800);
         let memAddress = 16384+x+y;
+        let position=memAddress;
         // column 0
         do Memory.poke(memAddress, -1);
         do Memory.poke(memAddress +32, -1);
@@ -120,7 +96,7 @@ class Marciano{
     }
 
 
-    function void erase(int x, int y) {
+    method void erase(int x, int y) {
         var int memAddress; 
         let x = Math.multiply(x, 2);
         let y = Math.multiply(y, 800);
@@ -186,11 +162,12 @@ class Marciano{
         return;
     }
 
-    function void marcian1(int x, int y) {
+    method void marcian1(int x, int y) {
         var int memAddress; 
         let x = Math.multiply(x, 2);
         let y = Math.multiply(y, 800);
         let memAddress = 16384+x+y;
+        let position=memAddress;
         // column 0
         do Memory.poke(memAddress, -1);
         do Memory.poke(memAddress +32, -1);

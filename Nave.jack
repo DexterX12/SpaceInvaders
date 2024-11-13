@@ -40,15 +40,15 @@ class Nave {
 
         if (key = 131) {
             if (player_bullet_pos < -1000) {
-                let player_bullet_pos = memory_pos - Math.multiply(32, 10);
+                let player_bullet_pos = memory_pos - Math.multiply(32, 5);
                 do Sprites.drawShipBullet(player_bullet_pos);
             }
         }
 
-        if (player_bullet_pos > -1000) {
+        if (player_bullet_pos > -1000) { 
             do Sprites.drawShipBullet(player_bullet_pos);
             do Sys.wait(10);
-            let player_bullet_pos = player_bullet_pos - Math.multiply(32, 10);
+            let player_bullet_pos = player_bullet_pos - Math.multiply(32, 5);
         }
 
         let memory_pos = Math.multiply(32, vertical_pos) + x_pos;

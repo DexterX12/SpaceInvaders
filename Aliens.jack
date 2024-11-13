@@ -1,0 +1,94 @@
+class Aliens{
+    field Array aliens;
+    field int posx;
+    field int posy;
+    field int total;
+
+    constructor Aliens new(){
+        var Marciano marcian;
+        var Array temp;
+        var int x, y;
+        let y=0;
+
+        let posx = 0;
+        let posy = 1;
+        let total = 18;
+        let aliens = Array.new(3);
+
+        while(y<3){
+            let x=0;
+            let temp = Array.new(6);
+            while(x<6) {
+                let marcian = Marciano.new(posx+x, posy+y);
+                let temp[x] = marcian;
+                let x = x + 1;
+            }
+            let aliens[y]=temp;
+            let y=y+1;
+        }
+        return this;
+    } 
+
+    method void draw(int positionx, int positiony){
+        var int x, y;
+        var Marciano temporal;
+        
+        let y=0;
+        while(y < 3){
+            let x=0;
+            while(x < 6){
+                let temporal = aliens[y];
+                let temporal = temporal[x];
+                do temporal.draw(positionx+x, positiony+y);
+                let x = x + 1;
+            }
+            let y=y+1;
+        }
+        return;
+    }
+
+    method void delete(int x, int y){
+        var int x;
+        var Marciano temp;
+        var int y;
+        let y=0;
+        while(y<3){
+            let x=0;
+            while(x<6){
+                let temp = aliens[y];
+                let temp = temp[x];
+                do temp.erase(posx+x, posy+y);
+                let x = x + 1;
+            }
+            let y=y+1;
+        }
+        return;
+    }
+
+    method void move(Nave navecita){
+        var int delay1, delay2;
+        let delay1 = 200;
+        let delay2 = 150;
+        while(posx <10){ 
+            do draw(posx, posy);             
+            do Time.delay(delay1, navecita);
+            do delete(posx, posy);
+            do Time.delay(delay2, navecita);
+            let posx=posx+1;
+        }
+        
+        while(posx>0){
+            do draw(posx, posy);
+            do Time.delay(delay1, navecita);
+            do delete(posx, posy);
+            do Time.delay(delay2, navecita);
+            let posx=posx-1;
+        }
+
+        if(posy<4){ 
+            let posy=posy+1;
+        }
+        return;
+    }
+    
+}
