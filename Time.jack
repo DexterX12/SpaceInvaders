@@ -1,5 +1,5 @@
 class Time{
-    function void delay(int duration, Nave navecita) {
+    function void delay(int duration, Nave navecita, Aliens aliens) {
         var int counter;
         var int n;
         let counter = 0;
@@ -8,7 +8,7 @@ class Time{
         while (counter < 20) {
             let counter = counter + 1;
             let n=0;
-            do navecita.userInput();
+            do navecita.userInput(aliens);
         }
         return;
     }

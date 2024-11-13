@@ -2,15 +2,21 @@ class Marciano{
     field int alive;
     field int position;
     field int state;
+    field int visible;
 
     constructor Marciano new(int x, int y){
         let alive = 1;
         let state = 1;
+        let visible= 1;
         do marcian1(x, y);
         return this;
     }
 
     method void draw(int x, int y) {
+        if(alive=0){
+            return;
+        }
+        let visible = 1;
         if (state = 1) {
             let state = 2;
             do marcian2(x, y);
@@ -20,9 +26,36 @@ class Marciano{
         }
         return;
     }
+
+
+    method int kill(int bullet_position){
+        var int index;
+        var int current_position, end_position;
+
+        let index=0;
+
+        if(visible=0){
+            return 0;
+        }
+
+        while(index < 3){
+            let current_position = position + Math.multiply(index, 400) -1 ;
+            let end_position = current_position+4;
+
+            if (((bullet_position > current_position)) & ((bullet_position < end_position))) {
+                 let alive = 0; 
+                 return 1;       
+           }
+            
+            let index=index+1;
+        }
+        
+        return 0;
+    }
+
     method void marcian2(int x, int y) {
         var int memAddress; 
-        let x = Math.multiply(x, 2);
+        let x = Math.multiply(x, 3);
         let y = Math.multiply(y, 800);
         let memAddress = 16384+x+y;
         let position=memAddress;
@@ -98,8 +131,9 @@ class Marciano{
 
     method void erase(int x, int y) {
         var int memAddress; 
-        let x = Math.multiply(x, 2);
+        let x = Math.multiply(x, 3);
         let y = Math.multiply(y, 800);
+        let visible = 0;
         let memAddress = 16384+x+y;
         // column 0
         do Memory.poke(memAddress, -1);
@@ -164,7 +198,7 @@ class Marciano{
 
     method void marcian1(int x, int y) {
         var int memAddress; 
-        let x = Math.multiply(x, 2);
+        let x = Math.multiply(x, 3);
         let y = Math.multiply(y, 800);
         let memAddress = 16384+x+y;
         let position=memAddress;

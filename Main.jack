@@ -24,7 +24,7 @@ class Main {
         while (true) {
             do Score.infoSuperior(current_lives, score);
 
-            do navecita.userInput();
+            do navecita.userInput(aliens);
 
             do aliens.move(navecita);
 
