@@ -39,7 +39,7 @@ class Marciano{
         }
 
         while(index < 3){
-            let current_position = position + Math.multiply(index, 348);
+            let current_position = position + Math.multiply(index, 348) - 1;
             let end_position = current_position + 4;
 
             if (((bullet_position > current_position)) & ((bullet_position < end_position))) {
