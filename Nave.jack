@@ -58,7 +58,9 @@ class Nave {
             if(respuesta=0){ //si mata un alien para la bala
                 let player_bullet_pos = player_bullet_pos - Math.multiply(32, 5);
             }else{
-                do erase(player_bullet_pos);
+                do explocion(player_bullet_pos- 320);
+                do Time.delay1(250);
+                do erase(player_bullet_pos- 320);
                 let player_bullet_pos = -10000;
             }
             
@@ -67,6 +69,70 @@ class Nave {
         let memory_pos = Math.multiply(32, vertical_pos) + x_pos;
         do Sprites.drawShip(memory_pos);
         
+        return;
+    }
+
+    method void explocion(int location) {
+        var int memAddress; 
+        let memAddress = 16384+location;
+        // column 0
+        do Memory.poke(memAddress, -1);
+        do Memory.poke(memAddress +32, -2113);
+        do Memory.poke(memAddress +64, -5865);
+        do Memory.poke(memAddress +96, 28515);
+        do Memory.poke(memAddress +128, 13903);
+        do Memory.poke(memAddress +160, 391);
+        do Memory.poke(memAddress +192, 12622);
+        do Memory.poke(memAddress +224, 909);
+        do Memory.poke(memAddress +256, -32506);
+        do Memory.poke(memAddress +288, 143);
+        do Memory.poke(memAddress +320, 2111);
+        do Memory.poke(memAddress +352, 17951);
+        do Memory.poke(memAddress +384, 63);
+        do Memory.poke(memAddress +416, 6527);
+        do Memory.poke(memAddress +448, 1407);
+        do Memory.poke(memAddress +480, 59);
+        do Memory.poke(memAddress +512, 2111);
+        do Memory.poke(memAddress +544, 263);
+        do Memory.poke(memAddress +576, 9319);
+        do Memory.poke(memAddress +608, 30819);
+        do Memory.poke(memAddress +640, 23751);
+        do Memory.poke(memAddress +672, 14943);
+        do Memory.poke(memAddress +704, 20997);
+        do Memory.poke(memAddress +736, 16769);
+        do Memory.poke(memAddress +768, 2095);
+        do Memory.poke(memAddress +800, 7951);
+        do Memory.poke(memAddress +832, -8217);
+        do Memory.poke(memAddress +864, -1);
+        // column 1
+        do Memory.poke(memAddress +1, -305);
+        do Memory.poke(memAddress +33, -146);
+        do Memory.poke(memAddress +65, -25702);
+        do Memory.poke(memAddress +97, -26423);
+        do Memory.poke(memAddress +129, -6844);
+        do Memory.poke(memAddress +161, -6932);
+        do Memory.poke(memAddress +193, -1418);
+        do Memory.poke(memAddress +225, 14371);
+        do Memory.poke(memAddress +257, -16623);
+        do Memory.poke(memAddress +289, -5213);
+        do Memory.poke(memAddress +321, -9341);
+        do Memory.poke(memAddress +353, -830);
+        do Memory.poke(memAddress +385, -5120);
+        do Memory.poke(memAddress +417, -640);
+        do Memory.poke(memAddress +449, -30784);
+        do Memory.poke(memAddress +481, -23912);
+        do Memory.poke(memAddress +513, -10776);
+        do Memory.poke(memAddress +545, -14176);
+        do Memory.poke(memAddress +577, -24592);
+        do Memory.poke(memAddress +609, -23120);
+        do Memory.poke(memAddress +641, -8800);
+        do Memory.poke(memAddress +673, -13832);
+        do Memory.poke(memAddress +705, -15120);
+        do Memory.poke(memAddress +737, -5196);
+        do Memory.poke(memAddress +769, -3090);
+        do Memory.poke(memAddress +801, -945);
+        do Memory.poke(memAddress +833, -97);
+        do Memory.poke(memAddress +865, -1);
         return;
     }
 

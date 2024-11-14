@@ -13,5 +13,19 @@ class Time{
         return;
     }
 
+    function void  delay1(int duration){
+        var int counter;
+        var int n;
+        let counter = 0;
+
+        while (counter < duration) {
+            let counter = counter + 1;
+            let n=0;
+            while(n<10){
+                let n=n+1;
+            }
+        }
+        return;
+    }
 
 }

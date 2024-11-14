@@ -39,8 +39,8 @@ class Marciano{
         }
 
         while(index < 3){
-            let current_position = position + Math.multiply(index, 400) -1 ;
-            let end_position = current_position+4;
+            let current_position = position + Math.multiply(index, 348);
+            let end_position = current_position + 4;
 
             if (((bullet_position > current_position)) & ((bullet_position < end_position))) {
                  let alive = 0; 
@@ -133,7 +133,6 @@ class Marciano{
         var int memAddress; 
         let x = Math.multiply(x, 3);
         let y = Math.multiply(y, 800);
-        let visible = 0;
         let memAddress = 16384+x+y;
         // column 0
         do Memory.poke(memAddress, -1);
@@ -193,6 +192,7 @@ class Marciano{
         do Memory.poke(memAddress +801, -1);
         do Memory.poke(memAddress +833, -1);
         do Memory.poke(memAddress +865, -1);
+        let visible = 0;
         return;
     }
 
@@ -269,5 +269,5 @@ class Marciano{
         do Memory.poke(memAddress +961, -1);
         do Memory.poke(memAddress +993, -1);
         return;
-    }
+    }   
 }
