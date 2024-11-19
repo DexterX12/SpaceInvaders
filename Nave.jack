@@ -62,6 +62,7 @@ class Nave {
                 do Time.delay1(250);
                 do erase(player_bullet_pos- 320);
                 let player_bullet_pos = -10000;
+                do Main.addScore(20);
             }
             
         }

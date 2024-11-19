@@ -2,9 +2,11 @@
 
 
 class Main {
+    static int score;
+    static int current_lives;
+
     function void main() {
-        var int score;
-        var int current_lives;
+        
         var Nave navecita;
         var Aliens aliens;
 
@@ -31,5 +33,23 @@ class Main {
         }
         return;
     }
-    
+
+    function void addScore(int points) {
+        let score = score + points;
+        return;
+    }
+
+    function int getScore() {
+        return score;
+    }
+
+    function void loseLife() {
+        let current_lives = current_lives - 1;
+        return;
+    }
+
+    function int getLives() {
+        return current_lives;
+    }
+
 }
