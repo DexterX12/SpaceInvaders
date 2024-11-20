@@ -12,6 +12,10 @@ class Marciano{
         return this;
     }
 
+    method int getMarcianStatus() {
+        return alive;
+    }
+
     method void draw(int x, int y) {
         if(alive=0){
             return;
@@ -269,5 +273,6 @@ class Marciano{
         do Memory.poke(memAddress +961, -1);
         do Memory.poke(memAddress +993, -1);
         return;
-    }   
+    }
+
 }

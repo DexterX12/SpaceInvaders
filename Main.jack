@@ -12,6 +12,7 @@ class Main {
 
         var int posx_aliens;
         var int posy_aliens;
+        var int alien_bullet_pos;
 
         let posx_aliens = 0;
         let posy_aliens = 1;
@@ -22,13 +23,20 @@ class Main {
         let aliens = Aliens.new();
 
         do Screen.drawRectangle(0, 0, 511, 255);
-
+    
         while (true) {
             do Score.infoSuperior(current_lives, score);
 
             do navecita.userInput(aliens);
-
             do aliens.move(navecita);
+
+            if (current_lives = 0) {
+                do Screen.drawRectangle(0, 0, 511, 255);
+                do Sprites.gameOverScreen(Math.multiply(32, 90) + 14);
+                while (true){
+                    // Loop forever
+                }
+            }
 
         }
         return;

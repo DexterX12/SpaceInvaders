@@ -200,4 +200,8 @@ class Nave {
         do Memory.poke(memAddress +865, -1);
         return;
     }
+
+    method int getShipMemPos() {
+        return memory_pos;
+    }
 }

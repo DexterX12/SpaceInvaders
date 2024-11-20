@@ -3,12 +3,18 @@ class Aliens{
     field int posx;
     field int posy;
     field int total;
+    field int alien_bullet_pos;
+    field int alien_to_shoot; // by column (first 0, then 1, etc...)
+    field int alien_x_shoot;
 
     constructor Aliens new(){
         var Marciano marcian;
         var Array temp;
         var int x, y;
         let y=0;
+        let alien_bullet_pos=0;
+        let alien_to_shoot=0;
+        let alien_x_shoot=0;
 
         let posx = 0;
         let posy = 1;
@@ -69,18 +75,23 @@ class Aliens{
         var int delay1, delay2;
         let delay1 = 400;
         let delay2 = 150;
+        
         while(posx <5){ 
-            do draw(posx, posy);             
+            do draw(posx, posy);
+            do moveAlienBullet(navecita);
             do Time.delay(delay1, navecita, this);
             do delete(posx, posy);
+            do moveAlienBullet(navecita);
             do Time.delay(delay2, navecita, this);
             let posx=posx+1;
         }
         
         while(posx>0){
             do draw(posx, posy);
+            do moveAlienBullet(navecita);
             do Time.delay(delay1, navecita, this);
             do delete(posx, posy);
+            do moveAlienBullet(navecita);
             do Time.delay(delay2, navecita, this);
             let posx=posx-1;
         }
@@ -112,4 +123,155 @@ class Aliens{
         }
         return 0;
     }
+
+    method void moveAlienBullet(Nave ship) {
+
+        var int ship_mem_pos;
+
+        if (alien_bullet_pos = 0) {
+            do AlienShoot();
+        } else {
+            // Move the bullet until it reaches Screen's memory limit
+            if (alien_bullet_pos < 7000) {
+                let alien_bullet_pos = alien_bullet_pos + Math.multiply(32, 5);
+                do Sprites.drawAlienBullet(alien_bullet_pos);
+            } else {
+                // If reaches the Screen's limit, erase it and reset the bullet position
+                do erase(alien_bullet_pos);
+                let alien_bullet_pos = 0;
+                let alien_to_shoot = alien_to_shoot + 1;
+    
+                if (alien_to_shoot > 5) {
+                    let alien_to_shoot = 0;
+                }
+            }
+        }
+
+        let ship_mem_pos = ship.getShipMemPos();
+
+        if ((alien_bullet_pos > (ship_mem_pos - 1)) & (alien_bullet_pos < (ship_mem_pos + 1))) {
+            do Main.loseLife();
+            do Main.getLives();
+            do Score.infoSuperior(Main.getLives(), Main.getScore());
+        }
+
+        return;
+    }
+    
+    method void AlienShoot(){
+        var int row, column, mposr, actualYpos;
+        var int __x, __y, memAddress;
+        var Marciano actualmarc;
+        var Marciano temp;
+
+        let row = 3;
+        let column = 6;
+
+        let mposr = 0;
+        let actualmarc = aliens[mposr];
+        let actualmarc = actualmarc[alien_to_shoot];
+
+        // There are no marcians on this column
+        if (~(actualmarc.getMarcianStatus() = 1)) {
+            let alien_to_shoot = alien_to_shoot + 1;
+
+            if (alien_to_shoot > 5) {
+                let alien_to_shoot = 0;
+            }
+
+            return; 
+        }
+
+        while(mposr < (row - 1)){
+            let temp = aliens[mposr + 1];
+            let temp = temp[alien_to_shoot];
+
+            if(temp.getMarcianStatus() = 1) {
+                let mposr = mposr+1;
+                let actualmarc = aliens[mposr];
+                let actualmarc = actualmarc[alien_to_shoot];
+                let actualYpos = mposr;
+            } else {
+                let actualYpos = mposr;
+                let mposr = row;
+            }
+        }
+
+        // Calculate the memory position of current alien
+        let __x = Math.multiply(posx + alien_to_shoot, 3);
+        let __y = Math.multiply(posy + actualYpos + 1, 800);
+        let memAddress = __x+__y;
+
+        // Put the bullet right below the alien
+        let alien_bullet_pos = memAddress + Math.multiply(32, 5);
+
+        do Sprites.drawAlienBullet(alien_bullet_pos);
+        
+        return;
+    }
+
+    method void erase(int location) {
+        var int memAddress; 
+        let memAddress = 16384+location;
+        // column 0
+        do Memory.poke(memAddress, -1);
+        do Memory.poke(memAddress +32, -1);
+        do Memory.poke(memAddress +64, -1);
+        do Memory.poke(memAddress +96, -1);
+        do Memory.poke(memAddress +128, -1);
+        do Memory.poke(memAddress +160, -1);
+        do Memory.poke(memAddress +192, -1);
+        do Memory.poke(memAddress +224, -1);
+        do Memory.poke(memAddress +256, -1);
+        do Memory.poke(memAddress +288, -1);
+        do Memory.poke(memAddress +320, -1);
+        do Memory.poke(memAddress +352, -1);
+        do Memory.poke(memAddress +384, -1);
+        do Memory.poke(memAddress +416, -1);
+        do Memory.poke(memAddress +448, -1);
+        do Memory.poke(memAddress +480, -1);
+        do Memory.poke(memAddress +512, -1);
+        do Memory.poke(memAddress +544, -1);
+        do Memory.poke(memAddress +576, -1);
+        do Memory.poke(memAddress +608, -1);
+        do Memory.poke(memAddress +640, -1);
+        do Memory.poke(memAddress +672, -1);
+        do Memory.poke(memAddress +704, -1);
+        do Memory.poke(memAddress +736, -1);
+        do Memory.poke(memAddress +768, -1);
+        do Memory.poke(memAddress +800, -1);
+        do Memory.poke(memAddress +832, -1);
+        do Memory.poke(memAddress +864, -1);
+        // column 1
+        do Memory.poke(memAddress +1, -1);
+        do Memory.poke(memAddress +33, -1);
+        do Memory.poke(memAddress +65, -1);
+        do Memory.poke(memAddress +97, -1);
+        do Memory.poke(memAddress +129, -1);
+        do Memory.poke(memAddress +161, -1);
+        do Memory.poke(memAddress +193, -1);
+        do Memory.poke(memAddress +225, -1);
+        do Memory.poke(memAddress +257, -1);
+        do Memory.poke(memAddress +289, -1);
+        do Memory.poke(memAddress +321, -1);
+        do Memory.poke(memAddress +353, -1);
+        do Memory.poke(memAddress +385, -1);
+        do Memory.poke(memAddress +417, -1);
+        do Memory.poke(memAddress +449, -1);
+        do Memory.poke(memAddress +481, -1);
+        do Memory.poke(memAddress +513, -1);
+        do Memory.poke(memAddress +545, -1);
+        do Memory.poke(memAddress +577, -1);
+        do Memory.poke(memAddress +609, -1);
+        do Memory.poke(memAddress +641, -1);
+        do Memory.poke(memAddress +673, -1);
+        do Memory.poke(memAddress +705, -1);
+        do Memory.poke(memAddress +737, -1);
+        do Memory.poke(memAddress +769, -1);
+        do Memory.poke(memAddress +801, -1);
+        do Memory.poke(memAddress +833, -1);
+        do Memory.poke(memAddress +865, -1);
+        return;
+    }
+
 }
